@@ -6,10 +6,8 @@ import { PortableText } from '@/components/PortableText'
 import { NewsletterForm } from '@/components/NewsletterForm'
 import type { Post } from '@/types'
 
-export const dynamic = 'force-dynamic'
-export const dynamicParams = true
-
 type Props = { params: Promise<{ slug: string }> }
+
 
 export async function generateStaticParams() {
   const posts: Post[] = await getAllPosts()
