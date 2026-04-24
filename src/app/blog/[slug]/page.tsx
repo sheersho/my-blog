@@ -68,7 +68,7 @@ export default async function BlogPostPage({ params }: Props) {
           {post.excerpt}
         </p>
 
-        <div className="flex items-center gap-4 text-sm text-ink-400 pb-8 border-b border-ink-100">
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-ink-400 pb-8 border-b border-ink-100">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-full bg-accent-100 text-accent-700 flex items-center justify-center text-xs font-semibold">
               {authorInitials}
