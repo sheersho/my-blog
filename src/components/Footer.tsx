@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 export function Footer() {
   const year = new Date().getFullYear()
-  const siteName = process.env.NEXT_PUBLIC_SITE_NAME ?? 'My Blog'
+  const siteName = process.env.NEXT_PUBLIC_SITE_NAME ?? "Sheersho's Blog"
 
   return (
     <footer className="border-t border-ink-100 bg-white mt-24">
@@ -33,7 +33,6 @@ export function Footer() {
               <nav className="space-y-1.5">
                 <Link href="/privacy" className="block text-ink-400 hover:text-ink-700 transition-colors">Privacy</Link>
                 <Link href="/terms" className="block text-ink-400 hover:text-ink-700 transition-colors">Terms</Link>
-                <Link href="/rss.xml" className="block text-ink-400 hover:text-ink-700 transition-colors">RSS</Link>
               </nav>
             </div>
           </div>
