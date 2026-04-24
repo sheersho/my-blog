@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'DM Sans', system-ui, sans-serif;
+  --font-serif: 'Lora', Georgia, serif;
+  --font-mono: 'DM Mono', monospace;
+
+  --color-ink-50: #f7f6f3;
+  --color-ink-100: #eeece6;
+  --color-ink-200: #d8d4ca;
+  --color-ink-300: #b8b2a5;
+  --color-ink-400: #948d7e;
+  --color-ink-500: #766f62;
+  --color-ink-600: #5e5850;
+  --color-ink-700: #4c4740;
+  --color-ink-800: #403c37;
+  --color-ink-900: #37332f;
+  --color-ink-950: #1e1c19;
+
+  --color-accent-50: #fdf8ef;
+  --color-accent-100: #faefd9;
+  --color-accent-200: #f4dcb2;
+  --color-accent-300: #edc281;
+  --color-accent-400: #e5a04e;
+  --color-accent-500: #de872c;
+  --color-accent-600: #cf6e21;
+  --color-accent-700: #ac541d;
+  --color-accent-800: #89431e;
+  --color-accent-900: #6f381b;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-ink-50 text-ink-800;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-serif);
+  }
+
+  ::selection {
+    @apply bg-accent-200 text-accent-900;
+  }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { @apply bg-ink-100; }
+  ::-webkit-scrollbar-thumb { @apply bg-ink-300 rounded-full; }
+}
+
+@layer components {
+  .prose-blog {
+    @apply text-ink-800 leading-relaxed;
+    font-family: var(--font-serif);
+    font-size: 1.125rem;
+    line-height: 1.8;
+  }
+
+  .prose-blog h1,
+  .prose-blog h2,
+  .prose-blog h3,
+  .prose-blog h4 {
+    @apply text-ink-950 mt-10 mb-4;
+    font-family: var(--font-serif);
+    font-weight: 600;
+  }
+
+  .prose-blog h2 { font-size: 1.75rem; }
+  .prose-blog h3 { font-size: 1.35rem; }
+
+  .prose-blog p { @apply mb-6; }
+
+  .prose-blog a {
+    @apply text-accent-700 underline underline-offset-2 decoration-accent-300 hover:decoration-accent-600 transition-all;
+  }
+
+  .prose-blog blockquote {
+    @apply border-l-4 border-accent-400 pl-6 italic text-ink-600 my-8;
+  }
+
+  .prose-blog code {
+    @apply bg-ink-100 text-ink-700 px-1.5 py-0.5 rounded text-sm;
+    font-family: var(--font-mono);
+  }
+
+  .prose-blog pre {
+    @apply bg-ink-950 text-ink-100 p-6 rounded-xl overflow-x-auto my-8;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    line-height: 1.7;
+  }
+
+  .prose-blog pre code {
+    @apply bg-transparent text-inherit p-0;
+  }
+
+  .prose-blog ul, .prose-blog ol {
+    @apply pl-6 mb-6 space-y-2;
+  }
+
+  .prose-blog ul { @apply list-disc; }
+  .prose-blog ol { @apply list-decimal; }
+
+  .prose-blog img {
+    @apply rounded-xl w-full my-8;
+  }
+
+  .prose-blog hr {
+    @apply border-ink-200 my-12;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center gap-2 bg-accent-500 hover:bg-accent-600 text-white font-medium px-5 py-2.5 rounded-lg transition-colors text-sm;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center gap-2 border border-ink-200 hover:border-ink-300 hover:bg-ink-100 text-ink-700 font-medium px-5 py-2.5 rounded-lg transition-colors text-sm;
+  }
+
+  .card {
+    @apply bg-white border border-ink-100 rounded-2xl overflow-hidden;
+  }
+
+  .badge-premium {
+    @apply inline-flex items-center gap-1 bg-accent-100 text-accent-800 text-xs font-medium px-2.5 py-1 rounded-full;
+  }
+}
