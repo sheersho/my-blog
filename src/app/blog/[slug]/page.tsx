@@ -1,18 +1,21 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { PLACEHOLDER_POSTS } from '@/lib/placeholder'
+import { getAllPosts, getPostBySlug } from '@/lib/sanity'
+import { PortableText } from '@/components/PortableText'
 import { NewsletterForm } from '@/components/NewsletterForm'
+import type { Post } from '@/types'
 
 type Props = { params: Promise<{ slug: string }> }
 
 export async function generateStaticParams() {
-  return PLACEHOLDER_POSTS.map(post => ({ slug: post.slug.current }))
+  const posts: Post[] = await getAllPosts()
+  return posts.map(post => ({ slug: post.slug.current }))
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
-  const post = PLACEHOLDER_POSTS.find(p => p.slug.current === slug)
+  const post: Post | null = await getPostBySlug(slug)
   if (!post) return {}
   return { title: post.title, description: post.excerpt }
 }
@@ -27,33 +30,33 @@ function formatDate(dateString: string) {
 
 export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params
-  const post = PLACEHOLDER_POSTS.find(p => p.slug.current === slug)
+  const post: Post | null = await getPostBySlug(slug)
   if (!post) notFound()
 
   const authorInitials = post.author.name
     .split(' ')
-    .map(n => n[0])
+    .map((n: string) => n[0])
     .join('')
     .toUpperCase()
 
   return (
     <article className="max-w-4xl mx-auto px-6 py-16">
-      {/* Back link */}
-      <Link href="/blog" className="text-sm text-ink-400 hover:text-ink-700 transition-colors mb-10 inline-flex items-center gap-1">
+      <Link
+        href="/blog"
+        className="text-sm text-ink-400 hover:text-ink-700 transition-colors mb-10 inline-flex items-center gap-1"
+      >
         ← All Writing
       </Link>
 
       {/* Post header */}
       <header className="mt-8 mb-12">
         <div className="flex items-center gap-3 mb-5">
-          {post.categories.map(cat => (
+          {post.categories?.map(cat => (
             <span key={cat._id} className="text-xs font-semibold text-accent-600 uppercase tracking-widest">
               {cat.title}
             </span>
           ))}
-          {post.isPremium && (
-            <span className="badge-premium">★ Premium</span>
-          )}
+          {post.isPremium && <span className="badge-premium">★ Premium</span>}
         </div>
 
         <h1 className="font-serif text-4xl sm:text-5xl font-semibold text-ink-950 leading-tight mb-6 max-w-2xl">
@@ -79,53 +82,7 @@ export default async function BlogPostPage({ params }: Props) {
       </header>
 
       {/* Body */}
-      <div className="prose-blog max-w-2xl">
-        <p>
-          There&apos;s a particular kind of silence that settles in before the first word. Not an empty silence — a charged one. The cursor blinks. The notebook sits open. And you, the writer, must decide whether today is the day you finally say the thing you&apos;ve been circling for weeks.
-        </p>
-
-        <p>
-          Most days, the decision isn&apos;t dramatic. You sit down, you write, you close the document. But somewhere in the accumulation of those unremarkable sessions, something shifts. The work begins to feel less like performance and more like thinking — and that&apos;s when it gets interesting.
-        </p>
-
-        <h2>The compounding return of consistent practice</h2>
-
-        <p>
-          Writers who produce consistently over years aren&apos;t necessarily more talented than those who don&apos;t. They&apos;ve simply made a different bargain: they&apos;ve traded the possibility of the perfect piece for the certainty of many real ones. Over time, that trade pays interest.
-        </p>
-
-        <p>
-          Each session adds a small deposit to an account you can&apos;t see in the moment. The ideas you capture today become the scaffolding for an insight you&apos;ll have in six months. The phrase you discard becomes the exact phrase you need next year. Nothing is wasted — it&apos;s all fermenting somewhere.
-        </p>
-
-        <blockquote>
-          You don&apos;t wait for inspiration. You show up, and inspiration learns your address.
-        </blockquote>
-
-        <h2>What actually changes</h2>
-
-        <p>
-          The external evidence of a writing practice is modest: a growing archive, a slightly larger audience, perhaps some money. The internal evidence is harder to describe but more significant. Your thinking sharpens. You start noticing the structure in things — conversations, arguments, your own moods. You become harder to fool because you&apos;ve spent so many hours trying to be precise.
-        </p>
-
-        <p>
-          You also become more patient with ambiguity. Writing teaches you that the first version of any idea is almost certainly wrong, and that this is fine — it&apos;s just the start of the process of getting it right. You stop needing to be right immediately, which makes you better at almost everything.
-        </p>
-
-        <h2>How to start (or restart)</h2>
-
-        <p>
-          The only requirement is that you write something today. Not good something. Not publishable something. Just something. A paragraph, a list, a complaint. The quality of the first draft is irrelevant; the only thing that matters is that you practiced the act of translating thought into language.
-        </p>
-
-        <p>
-          Do this enough times and you won&apos;t need motivation. You&apos;ll need the practice the way you need coffee in the morning — not because you decided to want it, but because the absence of it makes the day feel off.
-        </p>
-
-        <p>
-          That&apos;s the quiet art of it. No fanfare. Just the daily work of becoming someone who writes.
-        </p>
-      </div>
+      {post.body?.length > 0 && <PortableText value={post.body} />}
 
       {/* Author card */}
       <div className="mt-16 pt-10 border-t border-ink-100">

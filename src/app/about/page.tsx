@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { NewsletterForm } from '@/components/NewsletterForm'
-import { PLACEHOLDER_AUTHOR, PLACEHOLDER_CATEGORIES } from '@/lib/placeholder'
+import { getAllCategories } from '@/lib/sanity'
+import type { Category } from '@/types'
 
 export const metadata: Metadata = {
   title: 'About',
@@ -15,8 +16,17 @@ const TOPICS = [
   { label: 'Creativity & ideas', description: 'Where ideas come from, how to develop them, and how to stop killing them too early.' },
 ]
 
-export default function AboutPage() {
-  const initials = PLACEHOLDER_AUTHOR.name
+// Edit these directly to match your real details
+const AUTHOR = {
+  name: 'Your Name',
+  tagline: 'Writer, builder, and occasional overthinker. I write about the craft of creative work — what it takes to keep going, get better, and make things that matter.',
+  twitter: '@yourhandle',
+}
+
+export default async function AboutPage() {
+  const categories: Category[] = (await getAllCategories()) ?? []
+
+  const initials = AUTHOR.name
     .split(' ')
     .map(n => n[0])
     .join('')
@@ -31,19 +41,19 @@ export default function AboutPage() {
         </div>
         <div>
           <h1 className="font-serif text-4xl font-semibold text-ink-950 mb-3">
-            {PLACEHOLDER_AUTHOR.name}
+            {AUTHOR.name}
           </h1>
           <p className="text-ink-500 text-lg leading-relaxed max-w-xl">
-            Writer, builder, and occasional overthinker. I write about the craft of creative work — what it takes to keep going, get better, and make things that matter.
+            {AUTHOR.tagline}
           </p>
-          {PLACEHOLDER_AUTHOR.twitter && (
+          {AUTHOR.twitter && (
             <a
-              href={`https://twitter.com/${PLACEHOLDER_AUTHOR.twitter.replace('@', '')}`}
+              href={`https://twitter.com/${AUTHOR.twitter.replace('@', '')}`}
               className="inline-flex items-center gap-1.5 text-sm text-accent-600 hover:text-accent-800 transition-colors mt-4 font-medium"
               target="_blank"
               rel="noopener noreferrer"
             >
-              {PLACEHOLDER_AUTHOR.twitter} ↗
+              {AUTHOR.twitter} ↗
             </a>
           )}
         </div>
@@ -86,21 +96,22 @@ export default function AboutPage() {
 
         {/* Sidebar */}
         <div className="space-y-8">
-          {/* Topics */}
-          <div>
-            <h3 className="text-xs font-semibold text-ink-400 uppercase tracking-widest mb-3">Topics</h3>
-            <div className="flex flex-wrap gap-2">
-              {PLACEHOLDER_CATEGORIES.map(cat => (
-                <Link
-                  key={cat._id}
-                  href={`/blog?category=${cat.slug.current}`}
-                  className="px-3 py-1 rounded-full text-sm bg-white border border-ink-200 text-ink-600 hover:border-accent-300 hover:text-accent-700 transition-colors"
-                >
-                  {cat.title}
-                </Link>
-              ))}
+          {categories.length > 0 && (
+            <div>
+              <h3 className="text-xs font-semibold text-ink-400 uppercase tracking-widest mb-3">Topics</h3>
+              <div className="flex flex-wrap gap-2">
+                {categories.map(cat => (
+                  <Link
+                    key={cat._id}
+                    href={`/blog?category=${cat.slug.current}`}
+                    className="px-3 py-1 rounded-full text-sm bg-white border border-ink-200 text-ink-600 hover:border-accent-300 hover:text-accent-700 transition-colors"
+                  >
+                    {cat.title}
+                  </Link>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Newsletter CTA */}
           <div className="bg-white border border-ink-100 rounded-2xl p-6">

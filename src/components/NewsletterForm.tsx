@@ -10,10 +10,18 @@ export function NewsletterForm({ compact = false }: { compact?: boolean }) {
     e.preventDefault()
     if (!email) return
     setStatus('loading')
-    // TODO: wire up to /api/newsletter once Resend is configured
-    await new Promise(r => setTimeout(r, 800))
-    setStatus('success')
-    setEmail('')
+    try {
+      const res = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      })
+      if (!res.ok) throw new Error()
+      setStatus('success')
+      setEmail('')
+    } catch {
+      setStatus('error')
+    }
   }
 
   if (status === 'success') {
@@ -42,6 +50,9 @@ export function NewsletterForm({ compact = false }: { compact?: boolean }) {
       >
         {status === 'loading' ? 'Subscribing…' : 'Subscribe Free →'}
       </button>
+      {status === 'error' && (
+        <p className="text-sm text-red-500 mt-2 w-full">Something went wrong — please try again.</p>
+      )}
     </form>
   )
 }

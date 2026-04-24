@@ -17,7 +17,7 @@ export function Header() {
       <div className="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="font-serif text-xl font-semibold text-ink-950 hover:text-accent-700 transition-colors">
-          {process.env.NEXT_PUBLIC_SITE_NAME ?? 'My Blog'}
+          {process.env.NEXT_PUBLIC_SITE_NAME ?? "Sheersho's Blog"}
         </Link>
 
         {/* Desktop Nav */}

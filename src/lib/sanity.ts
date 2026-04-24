@@ -23,13 +23,13 @@ export const postFields = `
   _id,
   _createdAt,
   title,
-  "slug": slug.current,
+  slug { current },
   excerpt,
   publishedAt,
   isPremium,
   estimatedReadingTime,
   mainImage { asset, alt, caption },
-  categories[]-> { _id, title, "slug": slug.current, color },
+  categories[]-> { _id, title, slug { current }, color },
   author-> { _id, name, bio, image, twitter }
 `
 
@@ -72,7 +72,7 @@ export async function getPostsByCategory(categorySlug: string) {
 export async function getAllCategories() {
   return sanityClient.fetch(
     `*[_type == "category"] | order(title asc) {
-      _id, title, "slug": slug.current, color, description
+      _id, title, slug { current }, color, description
     }`
   )
 }

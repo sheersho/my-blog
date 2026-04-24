@@ -10,6 +10,7 @@
     "deploy": "next build && wrangler pages deploy out"
   },
   "dependencies": {
+    "@portabletext/react": "^6.0.3",
     "@sanity/client": "^7.21.0",
     "@sanity/image-url": "^2.1.1",
     "gray-matter": "^4.0.3",

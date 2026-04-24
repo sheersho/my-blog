@@ -1,17 +1,19 @@
 import Link from 'next/link'
 import { PostCard } from '@/components/PostCard'
 import { NewsletterForm } from '@/components/NewsletterForm'
-import { PLACEHOLDER_POSTS } from '@/lib/placeholder'
+import { getAllPosts } from '@/lib/sanity'
+import type { Post } from '@/types'
 
-export default function HomePage() {
-  const recentPosts = PLACEHOLDER_POSTS.slice(0, 4)
+export default async function HomePage() {
+  const posts: Post[] = (await getAllPosts()) ?? []
+  const recentPosts = posts.slice(0, 4)
 
   return (
     <>
       {/* Hero */}
       <section className="max-w-4xl mx-auto px-6 pt-20 pb-16">
         <span className="inline-block text-xs font-semibold text-accent-600 uppercase tracking-widest mb-5">
-          Independent Writing
+          Slow Journalism
         </span>
         <h1 className="font-serif text-5xl sm:text-6xl font-semibold text-ink-950 leading-tight max-w-2xl mb-6">
           Writing about building, creating &amp; living well.
@@ -38,11 +40,15 @@ export default function HomePage() {
           </Link>
         </div>
 
-        <div className="divide-y divide-ink-100">
-          {recentPosts.map(post => (
-            <PostCard key={post._id} post={post} />
-          ))}
-        </div>
+        {recentPosts.length > 0 ? (
+          <div className="divide-y divide-ink-100">
+            {recentPosts.map((post: Post) => (
+              <PostCard key={post._id} post={post} />
+            ))}
+          </div>
+        ) : (
+          <p className="text-ink-400 py-12 text-center">No posts yet — check back soon.</p>
+        )}
       </section>
 
       {/* Newsletter CTA */}

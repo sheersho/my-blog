@@ -13,7 +13,7 @@ export function PostCard({ post }: { post: Post }) {
   return (
     <article className="py-8 group">
       <div className="flex items-center gap-3 mb-3">
-        {post.categories.slice(0, 2).map(cat => (
+        {(post.categories ?? []).slice(0, 2).map(cat => (
           <span key={cat._id} className="text-xs font-medium text-accent-600 uppercase tracking-wider">
             {cat.title}
           </span>
