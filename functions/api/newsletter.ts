@@ -25,6 +25,18 @@ export async function onRequestPost({ request, env }: { request: Request; env: E
     return new Response(JSON.stringify({ error: 'Server misconfigured' }), { status: 500, headers })
   }
 
+  // Check if already subscribed
+  const listRes = await fetch(`https://api.resend.com/audiences/${env.RESEND_AUDIENCE_ID}/contacts`, {
+    headers: { 'Authorization': `Bearer ${env.RESEND_API_KEY}` },
+  })
+  if (listRes.ok) {
+    const { data } = await listRes.json() as { data: Array<{ email: string; unsubscribed: boolean }> }
+    const existing = data?.find(c => c.email.toLowerCase() === email.toLowerCase())
+    if (existing && !existing.unsubscribed) {
+      return new Response(JSON.stringify({ error: 'already_subscribed' }), { status: 409, headers })
+    }
+  }
+
   const res = await fetch(`https://api.resend.com/audiences/${env.RESEND_AUDIENCE_ID}/contacts`, {
     method: 'POST',
     headers: {

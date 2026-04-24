@@ -4,7 +4,7 @@ import { useState } from 'react'
 
 export function NewsletterForm({ compact = false }: { compact?: boolean }) {
   const [email, setEmail] = useState('')
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error' | 'duplicate'>('idle')
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -16,6 +16,7 @@ export function NewsletterForm({ compact = false }: { compact?: boolean }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),
       })
+      if (res.status === 409) { setStatus('duplicate'); return }
       if (!res.ok) throw new Error()
       setStatus('success')
       setEmail('')
@@ -52,6 +53,9 @@ export function NewsletterForm({ compact = false }: { compact?: boolean }) {
       </button>
       {status === 'error' && (
         <p className="text-sm text-red-500 mt-2 w-full">Something went wrong — please try again.</p>
+      )}
+      {status === 'duplicate' && (
+        <p className="text-sm text-amber-600 mt-2 w-full">You&apos;re already subscribed!</p>
       )}
     </form>
   )
