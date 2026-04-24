@@ -3,6 +3,8 @@ import { PostCard } from '@/components/PostCard'
 import { getAllPosts, getAllCategories } from '@/lib/sanity'
 import type { Post, Category } from '@/types'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: 'Writing',
   description: 'All posts and essays.',
