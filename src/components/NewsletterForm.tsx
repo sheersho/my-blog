@@ -42,17 +42,17 @@ export function NewsletterForm({ compact = false }: { compact?: boolean }) {
         onChange={e => setEmail(e.target.value)}
         placeholder="your@email.com"
         required
-        className="flex-1 px-4 py-2.5 rounded-lg border border-ink-200 bg-white text-ink-800 placeholder-ink-400 focus:outline-none focus:ring-2 focus:ring-accent-400 focus:border-transparent text-sm"
+        className="flex-1 px-4 py-3 rounded-full border border-ink-200/80 bg-white/90 text-ink-800 placeholder-ink-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-accent-400 focus:border-transparent text-sm"
       />
       <button
         type="submit"
         disabled={status === 'loading'}
-        className="btn-primary whitespace-nowrap disabled:opacity-60"
+        className="btn-primary whitespace-nowrap disabled:opacity-60 disabled:hover:translate-y-0"
       >
         {status === 'loading' ? 'Subscribing…' : 'Subscribe Free →'}
       </button>
       {status === 'error' && (
-        <p className="text-sm text-red-500 mt-2 w-full">Something went wrong — please try again.</p>
+        <p className="text-sm text-red-500 mt-2 w-full">Something went wrong. Please try again.</p>
       )}
       {status === 'duplicate' && (
         <p className="text-sm text-amber-600 mt-2 w-full">You&apos;re already subscribed!</p>

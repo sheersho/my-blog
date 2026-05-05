@@ -16,11 +16,10 @@ export default async function BlogPage() {
   ])
 
   return (
-    <div className="max-w-4xl mx-auto px-6 py-16">
-      {/* Page header */}
-      <div className="mb-12">
-        <h1 className="font-serif text-4xl font-semibold text-ink-950 mb-3">Writing</h1>
-        <p className="text-ink-500 text-lg">
+    <div className="max-w-5xl mx-auto px-6 py-16 md:py-20">
+      <div className="mb-12 rounded-[2rem] border border-white/70 bg-white/75 p-8 shadow-soft backdrop-blur">
+        <h1 className="font-serif text-4xl md:text-5xl font-semibold text-ink-950 mb-4 tracking-tight">Writing</h1>
+        <p className="max-w-3xl text-ink-500 text-lg leading-8">
           {posts.length} {posts.length === 1 ? 'essay' : 'essays'}
           {categories.length > 0 && (
             <>
@@ -41,13 +40,13 @@ export default async function BlogPage() {
       {/* Category filter */}
       {categories.length > 0 && (
         <div className="flex flex-wrap gap-2 mb-8">
-          <span className="px-3 py-1 rounded-full text-sm font-medium bg-ink-950 text-white">
+          <span className="px-3 py-1.5 rounded-full text-sm font-medium bg-ink-950 text-white shadow-sm">
             All
           </span>
           {categories.map(cat => (
             <span
               key={cat._id}
-              className="px-3 py-1 rounded-full text-sm font-medium bg-white border border-ink-200 text-ink-600 hover:border-ink-400 transition-colors cursor-pointer"
+              className="px-3 py-1.5 rounded-full text-sm font-medium bg-white/80 border border-white/80 text-ink-600 shadow-sm transition-colors cursor-pointer"
             >
               {cat.title}
             </span>
@@ -57,13 +56,13 @@ export default async function BlogPage() {
 
       {/* Posts */}
       {posts.length > 0 ? (
-        <div className="divide-y divide-ink-100">
+        <div className="divide-y divide-ink-100 rounded-[2rem] border border-white/70 bg-white/60 px-6 shadow-soft backdrop-blur">
           {posts.map((post: Post) => (
             <PostCard key={post._id} post={post} />
           ))}
         </div>
       ) : (
-        <p className="text-ink-400 py-16 text-center">No posts yet — check back soon.</p>
+        <p className="text-ink-500 py-16 text-center">No posts yet. Check back soon.</p>
       )}
     </div>
   )

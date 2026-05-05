@@ -8,13 +8,13 @@ const components = {
     image: ({ value }: { value: { asset?: { _ref: string }; alt?: string; caption?: string } }) => {
       if (!value?.asset?._ref) return null
       return (
-        <figure className="my-8">
+        <figure className="my-10">
           <Image
             src={urlFor(value as any).width(800).auto('format').url()}
             alt={value.alt ?? ''}
             width={800}
             height={500}
-            className="rounded-xl w-full"
+            className="rounded-2xl w-full shadow-lg shadow-ink-950/5"
           />
           {value.caption && (
             <figcaption className="text-center text-sm text-ink-400 mt-3">
@@ -27,16 +27,16 @@ const components = {
   },
   block: {
     h2: ({ children }: { children?: React.ReactNode }) => (
-      <h2 className="font-serif text-2xl font-semibold text-ink-950 mt-10 mb-4">{children}</h2>
+      <h2 className="font-serif text-[1.95rem] font-semibold text-ink-950 mt-12 mb-4 tracking-tight">{children}</h2>
     ),
     h3: ({ children }: { children?: React.ReactNode }) => (
-      <h3 className="font-serif text-xl font-semibold text-ink-950 mt-8 mb-3">{children}</h3>
+      <h3 className="font-serif text-[1.45rem] font-semibold text-ink-950 mt-10 mb-3 tracking-tight">{children}</h3>
     ),
     h4: ({ children }: { children?: React.ReactNode }) => (
       <h4 className="font-serif text-lg font-semibold text-ink-950 mt-6 mb-2">{children}</h4>
     ),
     blockquote: ({ children }: { children?: React.ReactNode }) => (
-      <blockquote className="border-l-4 border-accent-400 pl-6 italic text-ink-600 my-8">
+      <blockquote className="border-l-4 border-accent-500 pl-6 italic text-ink-600 my-8">
         {children}
       </blockquote>
     ),
@@ -60,7 +60,7 @@ const components = {
       <em className="italic">{children}</em>
     ),
     code: ({ children }: { children?: React.ReactNode }) => (
-      <code className="bg-ink-100 text-ink-700 px-1.5 py-0.5 rounded text-sm font-mono">
+      <code className="bg-ink-100 text-ink-700 px-1.5 py-0.5 rounded-md text-sm font-mono">
         {children}
       </code>
     ),

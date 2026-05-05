@@ -1,33 +1,32 @@
-@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@400;500&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: 'DM Sans', system-ui, sans-serif;
-  --font-serif: 'Lora', Georgia, serif;
-  --font-mono: 'DM Mono', monospace;
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-serif: 'Fraunces', Georgia, serif;
+  --font-mono: 'IBM Plex Mono', monospace;
 
-  --color-ink-50: #f7f6f3;
-  --color-ink-100: #eeece6;
-  --color-ink-200: #d8d4ca;
-  --color-ink-300: #b8b2a5;
-  --color-ink-400: #948d7e;
-  --color-ink-500: #766f62;
-  --color-ink-600: #5e5850;
-  --color-ink-700: #4c4740;
-  --color-ink-800: #403c37;
-  --color-ink-900: #37332f;
-  --color-ink-950: #1e1c19;
+  --color-ink-50: #f8fafc;
+  --color-ink-100: #eef2f7;
+  --color-ink-200: #d9e2ee;
+  --color-ink-300: #b8c6d8;
+  --color-ink-400: #8a98ad;
+  --color-ink-500: #647089;
+  --color-ink-600: #4b556b;
+  --color-ink-700: #394257;
+  --color-ink-800: #242b3d;
+  --color-ink-900: #151a27;
+  --color-ink-950: #0b1020;
 
-  --color-accent-50: #fdf8ef;
-  --color-accent-100: #faefd9;
-  --color-accent-200: #f4dcb2;
-  --color-accent-300: #edc281;
-  --color-accent-400: #e5a04e;
-  --color-accent-500: #de872c;
-  --color-accent-600: #cf6e21;
-  --color-accent-700: #ac541d;
-  --color-accent-800: #89431e;
-  --color-accent-900: #6f381b;
+  --color-accent-50: #eef7ff;
+  --color-accent-100: #d9edff;
+  --color-accent-200: #b4daff;
+  --color-accent-300: #84c4ff;
+  --color-accent-400: #54a6ff;
+  --color-accent-500: #2e88ff;
+  --color-accent-600: #1d6bef;
+  --color-accent-700: #1857c1;
+  --color-accent-800: #194894;
+  --color-accent-900: #183f78;
 }
 
 @layer base {
@@ -40,6 +39,10 @@
 
   body {
     @apply bg-ink-50 text-ink-800;
+    background:
+      radial-gradient(circle at top left, rgba(46, 136, 255, 0.08), transparent 34%),
+      radial-gradient(circle at top right, rgba(17, 24, 39, 0.05), transparent 30%),
+      linear-gradient(180deg, #fbfcfe 0%, #f5f8fc 100%);
     overflow-x: hidden;
   }
 
@@ -60,8 +63,8 @@
   .prose-blog {
     @apply text-ink-800 leading-relaxed;
     font-family: var(--font-serif);
-    font-size: 1.125rem;
-    line-height: 1.8;
+    font-size: 1.08rem;
+    line-height: 1.9;
     overflow-wrap: break-word;
     word-break: break-word;
     min-width: 0;
@@ -71,13 +74,13 @@
   .prose-blog h2,
   .prose-blog h3,
   .prose-blog h4 {
-    @apply text-ink-950 mt-10 mb-4;
+    @apply text-ink-950 mt-10 mb-4 tracking-tight;
     font-family: var(--font-serif);
-    font-weight: 600;
+    font-weight: 550;
   }
 
-  .prose-blog h2 { font-size: 1.75rem; }
-  .prose-blog h3 { font-size: 1.35rem; }
+  .prose-blog h2 { font-size: 1.95rem; }
+  .prose-blog h3 { font-size: 1.45rem; }
 
   .prose-blog p { @apply mb-6; }
 
@@ -86,7 +89,7 @@
   }
 
   .prose-blog blockquote {
-    @apply border-l-4 border-accent-400 pl-6 italic text-ink-600 my-8;
+    @apply border-l-4 border-accent-500 pl-6 italic text-ink-600 my-8;
   }
 
   .prose-blog code {
@@ -95,7 +98,7 @@
   }
 
   .prose-blog pre {
-    @apply bg-ink-950 text-ink-100 p-6 rounded-xl overflow-x-auto my-8;
+    @apply bg-ink-950 text-ink-100 p-6 rounded-2xl overflow-x-auto my-8 shadow-lg shadow-ink-950/10;
     font-family: var(--font-mono);
     font-size: 0.9rem;
     line-height: 1.7;
@@ -113,7 +116,7 @@
   .prose-blog ol { @apply list-decimal; }
 
   .prose-blog img {
-    @apply rounded-xl w-full my-8;
+    @apply rounded-2xl w-full my-8 shadow-lg shadow-ink-950/5;
   }
 
   .prose-blog hr {
@@ -121,18 +124,24 @@
   }
 
   .btn-primary {
-    @apply inline-flex items-center gap-2 bg-accent-500 hover:bg-accent-600 text-white font-medium px-5 py-2.5 rounded-lg transition-colors text-sm;
+    @apply inline-flex items-center gap-2 bg-ink-950 hover:bg-ink-800 text-white font-medium px-5 py-2.5 rounded-full transition-all duration-200 text-sm shadow-lg shadow-ink-950/15 hover:-translate-y-0.5;
   }
 
   .btn-secondary {
-    @apply inline-flex items-center gap-2 border border-ink-200 hover:border-ink-300 hover:bg-ink-100 text-ink-700 font-medium px-5 py-2.5 rounded-lg transition-colors text-sm;
+    @apply inline-flex items-center gap-2 border border-ink-200 hover:border-ink-300 hover:bg-white text-ink-700 font-medium px-5 py-2.5 rounded-full transition-all duration-200 text-sm shadow-sm;
   }
 
   .card {
-    @apply bg-white border border-ink-100 rounded-2xl overflow-hidden;
+    @apply bg-white/85 border border-white/70 rounded-[1.5rem] overflow-hidden backdrop-blur;
   }
 
   .badge-premium {
-    @apply inline-flex items-center gap-1 bg-accent-100 text-accent-800 text-xs font-medium px-2.5 py-1 rounded-full;
+    @apply inline-flex items-center gap-1 bg-accent-100 text-accent-800 text-xs font-medium px-2.5 py-1 rounded-full ring-1 ring-accent-200/70;
+  }
+}
+
+@layer utilities {
+  .shadow-soft {
+    box-shadow: 0 18px 50px rgba(11, 16, 32, 0.08);
   }
 }

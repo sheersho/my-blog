@@ -41,36 +41,35 @@ export default async function BlogPostPage({ params }: Props) {
     .toUpperCase()
 
   return (
-    <article className="max-w-4xl mx-auto px-6 py-16">
+    <article className="max-w-5xl mx-auto px-6 py-16 md:py-20">
       <Link
         href="/blog"
-        className="text-sm text-ink-400 hover:text-ink-700 transition-colors mb-10 inline-flex items-center gap-1"
+        className="mb-8 inline-flex items-center gap-2 rounded-full border border-white/80 bg-white/70 px-4 py-2 text-sm text-ink-500 shadow-sm transition-colors hover:text-ink-950"
       >
         ← All Writing
       </Link>
 
-      {/* Post header */}
-      <header className="mt-8 mb-12">
+      <header className="mt-4 mb-12 rounded-[2rem] border border-white/70 bg-white/80 p-8 shadow-soft backdrop-blur md:p-12">
         <div className="flex items-center gap-3 mb-5">
           {post.categories?.map(cat => (
-            <span key={cat._id} className="text-xs font-semibold text-accent-600 uppercase tracking-widest">
+            <span key={cat._id} className="text-[0.7rem] font-semibold text-accent-700 uppercase tracking-[0.2em]">
               {cat.title}
             </span>
           ))}
           {post.isPremium && <span className="badge-premium">★ Premium</span>}
         </div>
 
-        <h1 className="font-serif text-4xl sm:text-5xl font-semibold text-ink-950 leading-tight mb-6 max-w-2xl">
+        <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-semibold text-ink-950 leading-[1.02] mb-6 max-w-3xl tracking-tight">
           {post.title}
         </h1>
 
-        <p className="text-xl text-ink-500 leading-relaxed max-w-2xl mb-8">
+        <p className="text-lg md:text-xl text-ink-500 leading-8 max-w-2xl mb-8">
           {post.excerpt}
         </p>
 
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-ink-400 pb-8 border-b border-ink-100">
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-ink-500 pb-2">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-accent-100 text-accent-700 flex items-center justify-center text-xs font-semibold">
+            <div className="w-9 h-9 rounded-full bg-accent-100 text-accent-700 flex items-center justify-center text-xs font-semibold ring-1 ring-accent-200/60">
               {authorInitials}
             </div>
             <span className="text-ink-700 font-medium">{post.author.name}</span>
@@ -85,15 +84,14 @@ export default async function BlogPostPage({ params }: Props) {
       {/* Body */}
       {post.body?.length > 0 && <PortableText value={post.body} />}
 
-      {/* Author card */}
       <div className="mt-16 pt-10 border-t border-ink-100">
-        <div className="flex items-start gap-4">
-          <div className="w-12 h-12 rounded-full bg-accent-100 text-accent-700 flex items-center justify-center font-semibold text-sm shrink-0">
+        <div className="flex items-start gap-4 rounded-[1.75rem] bg-white/70 p-6 shadow-soft backdrop-blur">
+          <div className="w-12 h-12 rounded-full bg-accent-100 text-accent-700 flex items-center justify-center font-semibold text-sm shrink-0 ring-1 ring-accent-200/60">
             {authorInitials}
           </div>
           <div>
             <p className="font-medium text-ink-950 mb-1">{post.author.name}</p>
-            <p className="text-sm text-ink-500 leading-relaxed max-w-lg">{post.author.bio}</p>
+            <p className="text-sm text-ink-500 leading-6 max-w-lg">{post.author.bio}</p>
             {post.author.twitter && (
               <a
                 href={`https://twitter.com/${post.author.twitter.replace('@', '')}`}
@@ -108,10 +106,9 @@ export default async function BlogPostPage({ params }: Props) {
         </div>
       </div>
 
-      {/* Newsletter CTA */}
-      <div className="mt-16 p-8 bg-white border border-ink-100 rounded-2xl">
-        <h3 className="font-serif text-xl font-semibold text-ink-950 mb-2">Enjoyed this?</h3>
-        <p className="text-ink-500 text-sm mb-6">
+      <div className="mt-16 p-8 bg-white/80 border border-white/70 rounded-[2rem] shadow-soft backdrop-blur">
+        <h3 className="font-serif text-2xl font-semibold text-ink-950 mb-2 tracking-tight">Enjoyed this?</h3>
+        <p className="text-ink-500 text-sm mb-6 leading-6">
           Subscribe to get new essays delivered to your inbox.
         </p>
         <NewsletterForm compact />

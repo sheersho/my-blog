@@ -33,38 +33,38 @@ export default async function AboutPage() {
     .toUpperCase()
 
   return (
-    <div className="max-w-4xl mx-auto px-6 py-16">
-      {/* Profile */}
-      <div className="flex flex-col sm:flex-row items-start gap-8 mb-16">
-        <div className="w-20 h-20 rounded-full bg-accent-100 text-accent-700 flex items-center justify-center text-2xl font-semibold font-serif shrink-0">
-          {initials}
-        </div>
-        <div>
-          <h1 className="font-serif text-4xl font-semibold text-ink-950 mb-3">
-            {AUTHOR.name}
-          </h1>
-          <p className="text-ink-500 text-lg leading-relaxed max-w-xl">
-            {AUTHOR.tagline}
-          </p>
-          {AUTHOR.twitter && (
-            <a
-              href={`https://twitter.com/${AUTHOR.twitter.replace('@', '')}`}
-              className="inline-flex items-center gap-1.5 text-sm text-accent-600 hover:text-accent-800 transition-colors mt-4 font-medium"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {AUTHOR.twitter} ↗
-            </a>
-          )}
+    <div className="max-w-5xl mx-auto px-6 py-16 md:py-20">
+      <div className="rounded-[2.5rem] border border-white/70 bg-white/75 p-8 shadow-soft backdrop-blur md:p-12 mb-16">
+        <div className="flex flex-col sm:flex-row items-start gap-8">
+          <div className="w-20 h-20 rounded-full bg-accent-100 text-accent-700 flex items-center justify-center text-2xl font-semibold font-serif shrink-0 ring-1 ring-accent-200/60">
+            {initials}
+          </div>
+          <div>
+            <h1 className="font-serif text-4xl md:text-5xl font-semibold text-ink-950 mb-3 tracking-tight">
+              {AUTHOR.name}
+            </h1>
+            <p className="text-ink-500 text-lg leading-8 max-w-2xl">
+              {AUTHOR.tagline}
+            </p>
+            {AUTHOR.twitter && (
+              <a
+                href={`https://twitter.com/${AUTHOR.twitter.replace('@', '')}`}
+                className="inline-flex items-center gap-1.5 text-sm text-accent-700 hover:text-accent-900 transition-colors mt-4 font-medium"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {AUTHOR.twitter} ↗
+              </a>
+            )}
+          </div>
         </div>
       </div>
 
-      <div className="grid md:grid-cols-3 gap-16">
+      <div className="grid md:grid-cols-3 gap-10 lg:gap-16">
         <div className="md:col-span-2 space-y-8">
-          {/* Bio */}
-          <section>
-            <h2 className="font-serif text-2xl font-semibold text-ink-950 mb-4">About</h2>
-            <div className="prose-blog space-y-4">
+          <section className="rounded-[2rem] border border-white/70 bg-white/65 p-8 shadow-soft backdrop-blur">
+            <h2 className="font-serif text-2xl md:text-3xl font-semibold text-ink-950 mb-4 tracking-tight">About</h2>
+            <div className="prose-blog space-y-4 max-w-none">
               <p>
                 I started writing publicly a few years ago, mostly as a way to think out loud. What began as a scratchpad became a discipline — and eventually, something I care about deeply.
               </p>
@@ -77,9 +77,8 @@ export default async function AboutPage() {
             </div>
           </section>
 
-          {/* What I write about */}
-          <section>
-            <h2 className="font-serif text-2xl font-semibold text-ink-950 mb-6">What I write about</h2>
+          <section className="rounded-[2rem] border border-white/70 bg-white/65 p-8 shadow-soft backdrop-blur">
+            <h2 className="font-serif text-2xl md:text-3xl font-semibold text-ink-950 mb-6 tracking-tight">What I write about</h2>
             <div className="space-y-5">
               {TOPICS.map(t => (
                 <div key={t.label} className="flex gap-4">
@@ -97,14 +96,14 @@ export default async function AboutPage() {
         {/* Sidebar */}
         <div className="space-y-8">
           {categories.length > 0 && (
-            <div>
-              <h3 className="text-xs font-semibold text-ink-400 uppercase tracking-widest mb-3">Topics</h3>
+            <div className="rounded-[2rem] border border-white/70 bg-white/65 p-6 shadow-soft backdrop-blur">
+              <h3 className="text-xs font-semibold text-ink-500 uppercase tracking-[0.22em] mb-3">Topics</h3>
               <div className="flex flex-wrap gap-2">
                 {categories.map(cat => (
                   <Link
                     key={cat._id}
                     href={`/blog?category=${cat.slug.current}`}
-                    className="px-3 py-1 rounded-full text-sm bg-white border border-ink-200 text-ink-600 hover:border-accent-300 hover:text-accent-700 transition-colors"
+                    className="px-3 py-1.5 rounded-full text-sm bg-white/85 border border-white/80 text-ink-600 shadow-sm hover:border-accent-200 hover:text-accent-700 transition-colors"
                   >
                     {cat.title}
                   </Link>
@@ -113,10 +112,9 @@ export default async function AboutPage() {
             </div>
           )}
 
-          {/* Newsletter CTA */}
-          <div className="bg-white border border-ink-100 rounded-2xl p-6">
-            <h3 className="font-serif text-lg font-semibold text-ink-950 mb-2">Get the newsletter</h3>
-            <p className="text-xs text-ink-400 leading-relaxed mb-4">
+          <div className="rounded-[2rem] border border-ink-950 bg-ink-950 p-6 text-white shadow-soft">
+            <h3 className="font-serif text-lg font-semibold mb-2 tracking-tight">Get the newsletter</h3>
+            <p className="text-xs text-white/70 leading-relaxed mb-4">
               New essays in your inbox every week. Free.
             </p>
             <NewsletterForm compact />
