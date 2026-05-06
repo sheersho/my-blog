@@ -124,7 +124,7 @@
   }
 
   .btn-primary {
-    @apply inline-flex items-center gap-2 bg-ink-950 hover:bg-ink-800 text-white font-medium px-5 py-2.5 rounded-full transition-all duration-200 text-sm shadow-lg shadow-ink-950/15 hover:-translate-y-0.5;
+    @apply inline-flex items-center gap-2 bg-accent-600 hover:bg-accent-700 text-white font-medium px-5 py-2.5 rounded-full transition-all duration-200 text-sm shadow-lg shadow-accent-600/25 hover:-translate-y-0.5;
   }
 
   .btn-secondary {
